@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 interface IFormInput {
   title: string;
   description: string;
-  file: File;
+  file: File | null;
   age: number;
 }
 
@@ -33,7 +33,7 @@ const NewPostForm: FC<NewPostFormProps> = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const fileList = e.target.files;
+      const fileList = e.target.files[0];
       setFile(fileList);
     }
   };
@@ -57,17 +57,16 @@ const NewPostForm: FC<NewPostFormProps> = ({
         Description
         <textarea
           className="w-full block py-2 rounded-md border  mt-1 duration-300 border-gray-300 hover:border-gray-400 resize-none p-2"
-          {...register("description", { pattern: /^[A-Za-z]+$/i })}
+          {...register("description", {
+            required: true,
+            maxLength: 100,
+          })}
         />
       </label>
       <label>
         Image
         <div className="w-full h-20 py-6 rounded-md mt-1 border cursor-pointer border-gray-300 hover:border-gray-400 flex justify-center items-center">
-          {!file ? (
-            <AiOutlinePlus className="text-xl" />
-          ) : (
-            <p>{file[0].name}</p>
-          )}
+          {!file ? <AiOutlinePlus className="text-xl" /> : <p>{file.name}</p>}
           <input
             type="file"
             className="hidden"

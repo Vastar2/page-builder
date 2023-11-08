@@ -4,11 +4,11 @@ import { Toaster } from "react-hot-toast";
 import { AiOutlinePlus } from "react-icons/ai";
 import Modal from "./components/Modal";
 import { Item, Row } from "./types";
-import { v4 as uuidv4 } from "uuid";
-import toast from "react-hot-toast";
+import { onCreateRow } from "./utils";
 
 const App = () => {
   const [data, setData] = useState<Row[]>([]);
+
   const [isModalGeneral, setIsModalGeneral] = useState<boolean | null | number>(
     false
   );
@@ -16,6 +16,7 @@ const App = () => {
     boolean | null | number
   >(null);
 
+  const [collectionName, setCollectionName] = useState("");
   const [numberOfColumns, setNumberOfColumns] = useState(3);
   const [color, setColor] = useState("#818CF8");
   const [gap, setGap] = useState(8);
@@ -26,31 +27,6 @@ const App = () => {
   useEffect(() => {
     setPosts([...Array(numberOfColumns)].map(() => null));
   }, [numberOfColumns]);
-
-  // console.log("All data:", data);
-  // console.log("isModalGeneral", isModalGeneral);
-  // console.log("currentOpenPost", currentOpenPost);
-  // console.log("Posts list:", posts);
-
-  const onCreateRow = () => {
-    if (!posts.some((element) => element !== null)) {
-      toast.error("You should add at least one post");
-      return;
-    }
-
-    toast.success("Row is created");
-    setData((prev) => [
-      { id: uuidv4(), numberOfColumns, color, gap, posts },
-      ...prev,
-    ]);
-    setNumberOfColumns(3);
-    setColor("#818CF8");
-    setGap(8);
-    setPosts([...Array(numberOfColumns)].map(() => null));
-    setIsModalGeneral(false);
-  };
-
-  console.log(data);
 
   return (
     <div className="py-10">
@@ -74,6 +50,8 @@ const App = () => {
         setCurrentOpenPost={setCurrentOpenPost}
         numberOfColumns={numberOfColumns}
         setNumberOfColumns={setNumberOfColumns}
+        collectionName={collectionName}
+        setCollectionName={setCollectionName}
         color={color}
         setColor={setColor}
         gap={gap}
@@ -94,7 +72,22 @@ const App = () => {
         onClearPosts={() => {
           setPosts([...Array(numberOfColumns)].map(() => null));
         }}
-        onCreateRow={onCreateRow}
+        onCreateRow={() =>
+          onCreateRow(
+            collectionName,
+            posts,
+            numberOfColumns,
+            color,
+            gap,
+            setData,
+            setNumberOfColumns,
+            setCollectionName,
+            setColor,
+            setGap,
+            setPosts,
+            setIsModalGeneral
+          )
+        }
       />
       <Modal
         modalType="post"
@@ -103,6 +96,8 @@ const App = () => {
         setCurrentOpenPost={setCurrentOpenPost}
         numberOfColumns={numberOfColumns}
         setNumberOfColumns={setNumberOfColumns}
+        collectionName={collectionName}
+        setCollectionName={setCollectionName}
         color={color}
         setColor={setColor}
         gap={gap}
@@ -123,7 +118,22 @@ const App = () => {
         onClearPosts={() => {
           setPosts((prev) => prev);
         }}
-        onCreateRow={onCreateRow}
+        onCreateRow={() =>
+          onCreateRow(
+            collectionName,
+            posts,
+            numberOfColumns,
+            color,
+            gap,
+            setData,
+            setNumberOfColumns,
+            setCollectionName,
+            setColor,
+            setGap,
+            setPosts,
+            setIsModalGeneral
+          )
+        }
       />
       <Toaster position="top-center" reverseOrder={false} />
     </div>

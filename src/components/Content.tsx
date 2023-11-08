@@ -1,18 +1,14 @@
 import { FC } from "react";
-// import { createAvatar } from "@dicebear/core";
-// import { botttsNeutral } from "@dicebear/collection";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { Row } from "../types";
 import { twMerge } from "tailwind-merge";
 
 interface ContentProps {
   data: Row[];
-  // setRows: React.Dispatch<React.SetStateAction<Item[]>>;
   onDeleteRow: (id: string) => void;
 }
 
 const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
-  console.log(data[0]);
   return (
     <ul className="grid gap-3 w-1/4 ml-auto mr-auto relative">
       {data.map((item, index) => (
@@ -26,12 +22,13 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
           ></div>
           <div>
             <div className="flex mb-2">
-              <p className="font-bold">Collection name</p>
+              <p className="font-bold">{item.collectionName}</p>
               <div className="ml-auto">
                 <button
                   type="button"
                   onClick={() => {
-                    // onDeleteRow(item.id);
+                    // onEditRow(item.id);
+                    alert("Edit mode");
                   }}
                   className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
                 >
@@ -85,7 +82,7 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
                       {value.file && (
                         <div>
                           <img
-                            src={URL.createObjectURL(value.file[0])}
+                            src={URL.createObjectURL(value.file)}
                             alt="user image"
                             className="rounded-md shadow-md w-32"
                           />

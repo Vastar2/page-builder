@@ -1,11 +1,3 @@
-// export interface Item {
-//   numberOfColumns: number;
-//   color: string;
-//   id: string;
-//   teamName: string[];
-//   gap: number;
-// }
-
 export interface Item {
   title: string;
   description: string;
@@ -14,6 +6,7 @@ export interface Item {
 
 export interface Row {
   id: string;
+  collectionName: string;
   numberOfColumns: number;
   color: string;
   gap: number;

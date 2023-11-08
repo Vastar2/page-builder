@@ -1,6 +1,4 @@
 import { FC, useState } from "react";
-// import { v4 as uuidv4 } from "uuid";
-// import toast from "react-hot-toast";
 import ColumnsFilter from "./ColumnsFilter";
 import ColorsFilter from "./ColorsFilter";
 import GapsFilter from "./GapsFilter";
@@ -25,26 +23,6 @@ const Header: FC<HeaderProps> = ({
   const [isColumns, setIsColumns] = useState(false);
   const [isColors, setIsColors] = useState(false);
   const [isGap, setIsGap] = useState(false);
-
-  // const onCreate = () => {
-  //   if (numberOfColumns) {
-  //     setNumberOfColumns(null);
-  //     setColor("#818CF8");
-  //     setIsColumns(false);
-  //     setIsColors(false);
-  //     setIsGap(false);
-  //     createNewRow({
-  //       numberOfColumns,
-  //       color,
-  //       id: uuidv4(),
-  //       gap,
-  //     });
-  //     setIsModal(false);
-  //     toast.success("Row is added");
-  //   } else {
-  //     toast.error("You have to choose number of Columns");
-  //   }
-  // };
 
   return (
     <div className="w-full flex justify-around items-center bg-white gap-2 p-2 rounded-md relative ml-auto mr-auto shadow-md mb-4">
@@ -75,13 +53,6 @@ const Header: FC<HeaderProps> = ({
         gap={gap}
         setGap={setGap}
       />
-      {/* <button
-        type="button"
-        className="py-2 px-5 text-white rounded-md bg-indigo-400 duration-300 hover:bg-indigo-600"
-        // onClick={onCreate}
-      >
-        Create
-      </button> */}
     </div>
   );
 };

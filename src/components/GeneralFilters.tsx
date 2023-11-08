@@ -4,47 +4,55 @@ import { FC } from "react";
 import { Item } from "../types/index";
 
 interface GeneralFiltersProps {
-  // setIsModal: React.Dispatch<React.SetStateAction<boolean | null | number>>;
   setCurrentOpenPost: React.Dispatch<
     React.SetStateAction<boolean | number | null>
   >;
   posts: (null | Item)[];
   numberOfColumns: number;
   setNumberOfColumns: React.Dispatch<React.SetStateAction<number>>;
+  collectionName: string;
+  setCollectionName: React.Dispatch<React.SetStateAction<string>>;
   color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
   gap: number;
   setGap: React.Dispatch<React.SetStateAction<number>>;
   onCreateRow: () => void;
-  // setIsModalPost: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GeneralFilters: FC<GeneralFiltersProps> = ({
-  // setIsModal,
   setCurrentOpenPost,
   posts,
   numberOfColumns,
   setNumberOfColumns,
+  collectionName,
+  setCollectionName,
   color,
   setColor,
   gap,
   setGap,
   onCreateRow,
-  // setIsModalPost,
-  // setCurrentOpenPost,
 }) => {
   return (
     <div className="w-full">
       <p className="font-bold text-center mb-4 text-indigo-400 text-xl">
         New row
       </p>
+      <label>
+        Collection name
+        <input
+          type="text"
+          value={collectionName}
+          onChange={(e) => setCollectionName(e.target.value)}
+          className="w-full py-2 rounded-md border mt-1 mb-2 duration-300 border-gray-300 hover:border-gray-400 p-2"
+        />
+      </label>
       <Header
         numberOfColumns={numberOfColumns}
         setNumberOfColumns={setNumberOfColumns}
+        setGap={setGap}
         color={color}
         setColor={setColor}
         gap={gap}
-        setGap={setGap}
       />
       <ul className="flex h-[60px]" style={{ gap: gap }}>
         {[...Array(numberOfColumns).keys()].map((item) => (
