@@ -24,6 +24,14 @@ const App = () => {
     [...Array(numberOfColumns)].map(() => null)
   );
 
+  const [modalData, setModalData] = useState({
+    collectionName: "",
+    numberOfColumns: 3,
+    color: "#818CF8",
+    gap: 8,
+    posts: [...Array(numberOfColumns)].map(() => null),
+  });
+
   useEffect(() => {
     setPosts([...Array(numberOfColumns)].map(() => null));
   }, [numberOfColumns]);
@@ -47,8 +55,8 @@ const App = () => {
         modalType="general"
         isModal={isModalGeneral}
         setIsModal={setIsModalGeneral}
-        posts={posts}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
+        posts={posts}
         onNewFormData={(data) => {
           setPosts((prev) => {
             if (
@@ -93,8 +101,8 @@ const App = () => {
         modalType="post"
         isModal={currentOpenPost}
         setIsModal={setCurrentOpenPost}
-        posts={posts}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
+        posts={posts}
         onNewFormData={(data) => {
           setPosts((prev) => {
             if (
