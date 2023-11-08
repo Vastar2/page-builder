@@ -47,16 +47,8 @@ const App = () => {
         modalType="general"
         isModal={isModalGeneral}
         setIsModal={setIsModalGeneral}
-        setCurrentOpenPost={setCurrentOpenPost}
-        numberOfColumns={numberOfColumns}
-        setNumberOfColumns={setNumberOfColumns}
-        collectionName={collectionName}
-        setCollectionName={setCollectionName}
-        color={color}
-        setColor={setColor}
-        gap={gap}
-        setGap={setGap}
         posts={posts}
+        onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
         onNewFormData={(data) => {
           setPosts((prev) => {
             if (
@@ -88,21 +80,21 @@ const App = () => {
             setIsModalGeneral
           )
         }
+        collectionName={collectionName}
+        numberOfColumns={numberOfColumns}
+        color={color}
+        gap={gap}
+        onSetCollectionName={(name) => setCollectionName(name)}
+        onSetNumberOfColumns={(item) => setNumberOfColumns(item)}
+        onSetColor={(color) => setColor(color)}
+        onSetGap={(e) => setGap(e)}
       />
       <Modal
         modalType="post"
         isModal={currentOpenPost}
         setIsModal={setCurrentOpenPost}
-        setCurrentOpenPost={setCurrentOpenPost}
-        numberOfColumns={numberOfColumns}
-        setNumberOfColumns={setNumberOfColumns}
-        collectionName={collectionName}
-        setCollectionName={setCollectionName}
-        color={color}
-        setColor={setColor}
-        gap={gap}
-        setGap={setGap}
         posts={posts}
+        onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
         onNewFormData={(data) => {
           setPosts((prev) => {
             if (
@@ -134,6 +126,14 @@ const App = () => {
             setIsModalGeneral
           )
         }
+        collectionName={collectionName}
+        numberOfColumns={numberOfColumns}
+        color={color}
+        gap={gap}
+        onSetCollectionName={(name) => setCollectionName(name)}
+        onSetNumberOfColumns={(item) => setNumberOfColumns(item)}
+        onSetColor={(color) => setColor(color)}
+        onSetGap={(e) => setGap(e)}
       />
       <Toaster position="top-center" reverseOrder={false} />
     </div>

@@ -1,36 +1,24 @@
 import { FC } from "react";
 
 interface GapsFilterProps {
-  isColumns: boolean;
-  setIsColors: (value: boolean) => void;
-  setIsColumns: (value: boolean) => void;
-  setIsGap: (value: boolean) => void;
   isGap: boolean;
   gap: number;
-  setGap: (value: number) => void;
+  onOpenGapsFilter: () => void;
+  onSetGap: (e: number) => void;
 }
 
 const GapsFilter: FC<GapsFilterProps> = ({
-  isColumns,
-  setIsColors,
-  setIsColumns,
-  setIsGap,
   isGap,
   gap,
-  setGap,
+  onOpenGapsFilter,
+  onSetGap,
 }) => {
   return (
     <div className="flex flex-1 gap-2 items-center relative">
       <button
         type="button"
         className="flex justify-center gap-1 w-full items-center py-2 rounded-md duration-300 border border-indigo-600 hover:bg-indigo-200"
-        onClick={() => {
-          if (isColumns || setIsColors) {
-            setIsColumns(false);
-            setIsColors(false);
-          }
-          setIsGap(!isGap);
-        }}
+        onClick={onOpenGapsFilter}
       >
         <p className="text-indigo-600">({gap})</p>
         <p>Gap</p>
@@ -45,7 +33,7 @@ const GapsFilter: FC<GapsFilterProps> = ({
             step="4"
             value={gap}
             onChange={(e) => {
-              setGap(Number(e.target.value));
+              onSetGap(Number(e.target.value));
             }}
           />
         </div>

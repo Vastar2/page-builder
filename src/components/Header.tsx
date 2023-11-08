@@ -5,20 +5,20 @@ import GapsFilter from "./GapsFilter";
 
 interface HeaderProps {
   numberOfColumns: number;
-  setNumberOfColumns: React.Dispatch<React.SetStateAction<number>>;
   color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
   gap: number;
-  setGap: React.Dispatch<React.SetStateAction<number>>;
+  onSetNumberOfColumns: (item: number) => void;
+  onSetColor: (e: string) => void;
+  onSetGap: (e: number) => void;
 }
 
 const Header: FC<HeaderProps> = ({
   numberOfColumns,
-  setNumberOfColumns,
   color,
-  setColor,
   gap,
-  setGap,
+  onSetNumberOfColumns,
+  onSetColor,
+  onSetGap,
 }) => {
   const [isColumns, setIsColumns] = useState(false);
   const [isColors, setIsColors] = useState(false);
@@ -27,31 +27,43 @@ const Header: FC<HeaderProps> = ({
   return (
     <div className="w-full flex justify-around items-center bg-white gap-2 p-2 rounded-md relative ml-auto mr-auto shadow-md mb-4">
       <ColumnsFilter
-        isColors={isColors}
-        setIsGap={setIsGap}
-        setIsColors={setIsColors}
-        setIsColumns={setIsColumns}
         isColumns={isColumns}
         numberOfColumns={numberOfColumns}
-        setNumberOfColumns={setNumberOfColumns}
+        onOpenColumnsFilter={() => {
+          if (isColors || setIsGap) {
+            setIsColors(false);
+            setIsGap(false);
+          }
+          setIsColumns(!isColumns);
+        }}
+        onCloseColumnsFilter={(item) => {
+          setIsColumns(false);
+          onSetNumberOfColumns(item);
+        }}
       />
       <ColorsFilter
-        isColumns={isColumns}
-        setIsGap={setIsGap}
-        setIsColumns={setIsColumns}
-        setIsColors={setIsColors}
         isColors={isColors}
         color={color}
-        setColor={setColor}
+        onOpenColorsFilter={() => {
+          if (isColumns || setIsGap) {
+            setIsColumns(false);
+            setIsGap(false);
+          }
+          setIsColors(!isColors);
+        }}
+        onSetColor={onSetColor}
       />
       <GapsFilter
-        isColumns={isColumns}
-        setIsColors={setIsColors}
-        setIsColumns={setIsColumns}
-        setIsGap={setIsGap}
         isGap={isGap}
         gap={gap}
-        setGap={setGap}
+        onOpenGapsFilter={() => {
+          if (isColumns || setIsColors) {
+            setIsColumns(false);
+            setIsColors(false);
+          }
+          setIsGap(!isGap);
+        }}
+        onSetGap={onSetGap}
       />
     </div>
   );

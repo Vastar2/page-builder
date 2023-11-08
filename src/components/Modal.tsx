@@ -8,40 +8,39 @@ interface ModalProps {
   modalType: string;
   isModal: boolean | number | null;
   setIsModal: React.Dispatch<React.SetStateAction<boolean | number | null>>;
-  setCurrentOpenPost: React.Dispatch<
-    React.SetStateAction<boolean | number | null>
-  >;
-  numberOfColumns: number;
-  setNumberOfColumns: React.Dispatch<React.SetStateAction<number>>;
-  collectionName: string;
-  setCollectionName: React.Dispatch<React.SetStateAction<string>>;
-  color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  gap: number;
-  setGap: React.Dispatch<React.SetStateAction<number>>;
+  onGetNumberOfOpenPost: (item: number | null) => void;
   posts: (null | Item)[];
   onNewFormData: (data: Item) => void;
   onClearPosts: () => void;
   onCreateRow: () => void;
+  collectionName: string;
+  numberOfColumns: number;
+  color: string;
+  gap: number;
+  onSetCollectionName: (name: string) => void;
+  onSetNumberOfColumns: (item: number) => void;
+  onSetColor: (e: string) => void;
+  onSetGap: (e: number) => void;
 }
 
 const Modal: FC<ModalProps> = ({
   modalType,
   isModal,
   setIsModal,
-  setCurrentOpenPost,
-  numberOfColumns,
-  setNumberOfColumns,
-  collectionName,
-  setCollectionName,
-  color,
-  setColor,
-  gap,
-  setGap,
+  onGetNumberOfOpenPost,
   posts,
   onNewFormData,
   onClearPosts,
   onCreateRow,
+
+  collectionName,
+  numberOfColumns,
+  color,
+  gap,
+  onSetCollectionName,
+  onSetNumberOfColumns,
+  onSetColor,
+  onSetGap,
 }) => {
   if (isModal === false || isModal === null) return null;
 
@@ -50,23 +49,23 @@ const Modal: FC<ModalProps> = ({
       <div className="w-1/4 px-2 bg-white pt-4 pb-2 rounded-md relative ml-auto mr-auto shadow-md mb-6">
         {modalType === "general" && (
           <GeneralFilters
-            setCurrentOpenPost={setCurrentOpenPost}
+            onGetNumberOfOpenPost={onGetNumberOfOpenPost}
             posts={posts}
-            numberOfColumns={numberOfColumns}
-            setNumberOfColumns={setNumberOfColumns}
-            collectionName={collectionName}
-            setCollectionName={setCollectionName}
-            color={color}
-            setColor={setColor}
-            gap={gap}
-            setGap={setGap}
             onCreateRow={onCreateRow}
+            collectionName={collectionName}
+            numberOfColumns={numberOfColumns}
+            color={color}
+            gap={gap}
+            onSetCollectionName={onSetCollectionName}
+            onSetNumberOfColumns={onSetNumberOfColumns}
+            onSetColor={onSetColor}
+            onSetGap={onSetGap}
           />
         )}
         {modalType === "post" && (
           <NewPostForm
             currentOpenPost={isModal}
-            setCurrentOpenPost={setCurrentOpenPost}
+            onGetNumberOfOpenPost={onGetNumberOfOpenPost}
             onNewFormData={onNewFormData}
           />
         )}

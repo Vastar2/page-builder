@@ -12,15 +12,13 @@ interface IFormInput {
 
 interface NewPostFormProps {
   currentOpenPost: boolean | number | null;
-  setCurrentOpenPost: React.Dispatch<
-    React.SetStateAction<null | boolean | number>
-  >;
+  onGetNumberOfOpenPost: (item: number | null) => void;
   onNewFormData: (data: Item) => void;
 }
 
 const NewPostForm: FC<NewPostFormProps> = ({
   currentOpenPost,
-  setCurrentOpenPost,
+  onGetNumberOfOpenPost,
   onNewFormData,
 }) => {
   const [file, setFile] = useState<null | File>(null);
@@ -28,7 +26,7 @@ const NewPostForm: FC<NewPostFormProps> = ({
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     onNewFormData({ ...data, file });
-    setCurrentOpenPost(null);
+    onGetNumberOfOpenPost(null);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

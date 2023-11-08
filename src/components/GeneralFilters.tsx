@@ -4,33 +4,32 @@ import { FC } from "react";
 import { Item } from "../types/index";
 
 interface GeneralFiltersProps {
-  setCurrentOpenPost: React.Dispatch<
-    React.SetStateAction<boolean | number | null>
-  >;
+  onGetNumberOfOpenPost: (item: number | null) => void;
   posts: (null | Item)[];
-  numberOfColumns: number;
-  setNumberOfColumns: React.Dispatch<React.SetStateAction<number>>;
-  collectionName: string;
-  setCollectionName: React.Dispatch<React.SetStateAction<string>>;
-  color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  gap: number;
-  setGap: React.Dispatch<React.SetStateAction<number>>;
   onCreateRow: () => void;
+  collectionName: string;
+  numberOfColumns: number;
+  color: string;
+  gap: number;
+  onSetCollectionName: (name: string) => void;
+  onSetNumberOfColumns: (item: number) => void;
+  onSetColor: (e: string) => void;
+  onSetGap: (e: number) => void;
 }
 
 const GeneralFilters: FC<GeneralFiltersProps> = ({
-  setCurrentOpenPost,
+  onGetNumberOfOpenPost,
   posts,
-  numberOfColumns,
-  setNumberOfColumns,
-  collectionName,
-  setCollectionName,
-  color,
-  setColor,
-  gap,
-  setGap,
   onCreateRow,
+
+  collectionName,
+  numberOfColumns,
+  color,
+  gap,
+  onSetCollectionName,
+  onSetNumberOfColumns,
+  onSetColor,
+  onSetGap,
 }) => {
   return (
     <div className="w-full">
@@ -42,17 +41,17 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
         <input
           type="text"
           value={collectionName}
-          onChange={(e) => setCollectionName(e.target.value)}
+          onChange={(e) => onSetCollectionName(e.target.value)}
           className="w-full py-2 rounded-md border mt-1 mb-2 duration-300 border-gray-300 hover:border-gray-400 p-2"
         />
       </label>
       <Header
         numberOfColumns={numberOfColumns}
-        setNumberOfColumns={setNumberOfColumns}
-        setGap={setGap}
         color={color}
-        setColor={setColor}
         gap={gap}
+        onSetNumberOfColumns={onSetNumberOfColumns}
+        onSetColor={onSetColor}
+        onSetGap={onSetGap}
       />
       <ul className="flex h-[60px]" style={{ gap: gap }}>
         {[...Array(numberOfColumns).keys()].map((item) => (
@@ -69,7 +68,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  setCurrentOpenPost(item);
+                  onGetNumberOfOpenPost(item);
                 }}
                 className="w-full h-full py-2 flex justify-center items-center duration-300 hover:bg-gray-100"
               >
