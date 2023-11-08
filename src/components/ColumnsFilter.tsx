@@ -21,10 +21,10 @@ const ColumnsFilter: FC<ColumnsFilterProps> = ({
   setNumberOfColumns,
 }) => {
   return (
-    <div className="flex items-center gap-4 relative after:content-[''] after:absolute after:bg-gray-200 after:-top-1 after:-right-3.5 after:w-0.5 after:h-12">
+    <div className="flex flex-1 items-center gap-4 relative">
       <button
         type="button"
-        className="flex justify-center w-24 gap-1 items-center py-2 rounded-md duration-300 border border-indigo-600 hover:bg-indigo-200"
+        className="flex justify-center w-full gap-1 items-center py-2 rounded-md duration-300 border border-indigo-600 hover:bg-indigo-200"
         onClick={() => {
           if (isColors || setIsGap) {
             setIsColors(false);
@@ -41,8 +41,8 @@ const ColumnsFilter: FC<ColumnsFilterProps> = ({
         <p>Columns</p>
       </button>
       {isColumns && (
-        <ul className="absolute top-16 -left-4 w-32 bg-white py-3 px-4 rounded-md z-50 shadow-md">
-          {[...Array(4).keys()].map((item) => (
+        <ul className="absolute top-16 w-full bg-white py-3 px-4 rounded-md z-50 shadow-md">
+          {[...Array(3).keys()].map((item) => (
             <li
               key={item}
               className="flex justify-center  items-center mb-2 last-of-type:mb-0"

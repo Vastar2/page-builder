@@ -20,10 +20,10 @@ const GapsFilter: FC<GapsFilterProps> = ({
   setGap,
 }) => {
   return (
-    <div className="flex gap-2 items-center relative after:content-[''] after:absolute after:bg-gray-200 after:-top-1 after:-right-3.5 after:w-0.5 after:h-12">
+    <div className="flex flex-1 gap-2 items-center relative">
       <button
         type="button"
-        className="flex justify-center gap-1 w-16 items-center py-2 rounded-md duration-300 border border-indigo-600 hover:bg-indigo-200"
+        className="flex justify-center gap-1 w-full items-center py-2 rounded-md duration-300 border border-indigo-600 hover:bg-indigo-200"
         onClick={() => {
           if (isColumns || setIsColors) {
             setIsColumns(false);
@@ -36,7 +36,7 @@ const GapsFilter: FC<GapsFilterProps> = ({
         <p>Gap</p>
       </button>
       {isGap && (
-        <div className="absolute top-16 -left-9 w-32 bg-white py-3 px-4 rounded-md z-50 shadow-md">
+        <div className="absolute top-16 w-full bg-white py-3 px-4 rounded-md z-50 shadow-md">
           <input
             type="range"
             className="w-full cursor-pointer"

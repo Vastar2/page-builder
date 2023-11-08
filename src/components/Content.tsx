@@ -1,21 +1,21 @@
 import { FC } from "react";
-import { createAvatar } from "@dicebear/core";
-import { botttsNeutral } from "@dicebear/collection";
-import { Item } from "../types";
-import { useRotation } from "../hooks";
-import { AiOutlineDelete } from "react-icons/ai";
+// import { createAvatar } from "@dicebear/core";
+// import { botttsNeutral } from "@dicebear/collection";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { Row } from "../types";
+import { twMerge } from "tailwind-merge";
 
 interface ContentProps {
-  rows: Item[];
-  setRows: React.Dispatch<React.SetStateAction<Item[]>>;
+  data: Row[];
+  // setRows: React.Dispatch<React.SetStateAction<Item[]>>;
+  onDeleteRow: (id: string) => void;
 }
 
-const Content: FC<ContentProps> = ({ rows, setRows }) => {
-  const { mouseX, mouseY } = useRotation();
-
+const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
+  console.log(data[0]);
   return (
     <ul className="grid gap-3 w-1/4 ml-auto mr-auto relative">
-      {rows.map((item, index) => (
+      {data.map((item, index) => (
         <li
           key={index}
           className={`grid bg-white p-2 pt-5 rounded-md shadow-md relative overflow-hidden`}
@@ -24,44 +24,83 @@ const Content: FC<ContentProps> = ({ rows, setRows }) => {
             className="w-full h-2 absolute"
             style={{ backgroundColor: item.color }}
           ></div>
-          <p className="mb-2 font-bold">Team {item.teamName}</p>
-          <ul className="grid grid-cols-4" style={{ gap: rows[index].gap }}>
-            {[...Array(item.numberOfColumns).keys()].map((_, index) => {
-              const avatar = createAvatar(botttsNeutral, {
-                seed: `${
-                  parseInt(item.id.replace(/-/g, ""), 16) * (index + 1)
-                }`,
-              }).toDataUriSync();
-
-              return (
-                <li key={index} className="bg-gray-100 p-2 rounded-md relative">
-                  <div className="animate-bounce">
-                    <img
-                      src={avatar}
-                      alt="avatar image"
-                      className="rounded-md shadow-md"
-                      style={{
-                        transform: `rotateY(${
-                          (window.innerWidth / 2 - mouseX) / 14
-                        }deg) rotateX(${
-                          (window.innerHeight / 2 + mouseY - 800) / 14
-                        }deg)`,
-                      }}
-                    />
-                  </div>
+          <div>
+            <div className="flex mb-2">
+              <p className="font-bold">Collection name</p>
+              <div className="ml-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    // onDeleteRow(item.id);
+                  }}
+                  className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
+                >
+                  <AiOutlineEdit />
+                </button>
+              </div>
+              <div className="ml-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDeleteRow(item.id);
+                  }}
+                  className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
+                >
+                  <AiOutlineDelete />
+                </button>
+              </div>
+            </div>
+            <ul
+              className="grid"
+              style={{
+                gap: data[index].gap,
+                gridTemplateColumns: `repeat(${item.numberOfColumns}, 1fr)`,
+              }}
+            >
+              {item.posts.map((value, index) => (
+                <li
+                  key={index}
+                  className={`bg-gray-100 p-2 rounded-md relative`}
+                >
+                  {value ? (
+                    <div
+                      className={`${twMerge(
+                        item.numberOfColumns === 1 ? "flex gap-4" : "block"
+                      )}`}
+                    >
+                      <div
+                        className={`${twMerge(
+                          item.numberOfColumns === 1 ? "mr-auto" : ""
+                        )} mb-1`}
+                      >
+                        <p className="font-bold mb-1">{value.title}</p>
+                        <p
+                          className={`${twMerge(
+                            item.numberOfColumns === 1 ? " w-56" : " w-28"
+                          )} break-words`}
+                        >
+                          {value.description}
+                        </p>
+                      </div>
+                      {value.file && (
+                        <div>
+                          <img
+                            src={URL.createObjectURL(value.file[0])}
+                            alt="user image"
+                            className="rounded-md shadow-md w-32"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center h-full">
+                      <p>Nothing</p>
+                    </div>
+                  )}
                 </li>
-              );
-            })}
-          </ul>
-          <button
-            type="button"
-            onClick={() => {
-              setRows((prev) => prev.filter((value) => value.id !== item.id));
-            }}
-            className="absolute top-6 right-4"
-          >
-            <AiOutlineDelete />
-          </button>
+              ))}
+            </ul>
+          </div>
         </li>
       ))}
     </ul>
