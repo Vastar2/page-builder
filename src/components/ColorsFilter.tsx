@@ -6,14 +6,14 @@ interface ColorsFilterProps {
   isColors: boolean;
   color: string;
   onOpenColorsFilter: () => void;
-  onSetColor: (e: string) => void;
+  onSetModalData: (name: string, data: number | string | null) => void;
 }
 
 const ColorsFilter: FC<ColorsFilterProps> = ({
   isColors,
   color,
   onOpenColorsFilter,
-  onSetColor,
+  onSetModalData,
 }) => {
   return (
     <div className="flex flex-1 gap-2 items-center relative">
@@ -34,7 +34,7 @@ const ColorsFilter: FC<ColorsFilterProps> = ({
         <div className="absolute w-full top-16 p-3 rounded-md bg-white shadow-md z-50 ">
           <HexColorPicker
             color={color}
-            onChange={(e) => onSetColor(e)}
+            onChange={(e) => onSetModalData("color", e)}
             style={{ width: "100%", height: "180px" }}
           />
         </div>

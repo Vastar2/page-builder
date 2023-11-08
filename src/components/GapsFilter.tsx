@@ -4,14 +4,14 @@ interface GapsFilterProps {
   isGap: boolean;
   gap: number;
   onOpenGapsFilter: () => void;
-  onSetGap: (e: number) => void;
+  onSetModalData: (name: string, data: number | string | null) => void;
 }
 
 const GapsFilter: FC<GapsFilterProps> = ({
   isGap,
   gap,
   onOpenGapsFilter,
-  onSetGap,
+  onSetModalData,
 }) => {
   return (
     <div className="flex flex-1 gap-2 items-center relative">
@@ -33,7 +33,7 @@ const GapsFilter: FC<GapsFilterProps> = ({
             step="4"
             value={gap}
             onChange={(e) => {
-              onSetGap(Number(e.target.value));
+              onSetModalData("gap", Number(e.target.value));
             }}
           />
         </div>

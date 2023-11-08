@@ -1,35 +1,22 @@
 import Header from "./Header";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FC } from "react";
-import { Item } from "../types/index";
+import { TModalData } from "../types/index";
 
 interface GeneralFiltersProps {
   onGetNumberOfOpenPost: (item: number | null) => void;
-  posts: (null | Item)[];
   onCreateRow: () => void;
-  collectionName: string;
-  numberOfColumns: number;
-  color: string;
-  gap: number;
-  onSetCollectionName: (name: string) => void;
-  onSetNumberOfColumns: (item: number) => void;
-  onSetColor: (e: string) => void;
-  onSetGap: (e: number) => void;
+
+  modalData: TModalData;
+  onSetModalData: (name: string, data: number | string | null) => void;
 }
 
 const GeneralFilters: FC<GeneralFiltersProps> = ({
   onGetNumberOfOpenPost,
-  posts,
   onCreateRow,
 
-  collectionName,
-  numberOfColumns,
-  color,
-  gap,
-  onSetCollectionName,
-  onSetNumberOfColumns,
-  onSetColor,
-  onSetGap,
+  modalData,
+  onSetModalData,
 }) => {
   return (
     <div className="w-full">
@@ -40,28 +27,23 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
         Collection name
         <input
           type="text"
-          value={collectionName}
-          onChange={(e) => onSetCollectionName(e.target.value)}
+          value={modalData.collectionName}
+          onChange={(e) => onSetModalData("collectionName", e.target.value)}
           className="w-full py-2 rounded-md border mt-1 mb-2 duration-300 border-gray-300 hover:border-gray-400 p-2"
         />
       </label>
-      <Header
-        numberOfColumns={numberOfColumns}
-        color={color}
-        gap={gap}
-        onSetNumberOfColumns={onSetNumberOfColumns}
-        onSetColor={onSetColor}
-        onSetGap={onSetGap}
-      />
-      <ul className="flex h-[60px]" style={{ gap: gap }}>
-        {[...Array(numberOfColumns).keys()].map((item) => (
+      <Header modalData={modalData} onSetModalData={onSetModalData} />
+      <ul className="flex h-[60px]" style={{ gap: modalData.gap }}>
+        {[...Array(modalData.numberOfColumns).keys()].map((item) => (
           <li
             className="flex-1 h-full rounded-md border border-gray-300"
             key={item}
           >
-            {posts[item] ? (
+            {modalData.posts[item] ? (
               <div className="py-2">
-                <p className="text-center font-bold">{posts[item]?.title}</p>
+                <p className="text-center font-bold">
+                  {modalData.posts[item]?.title}
+                </p>
                 <p className="text-center text-sm text-gray-400">(Added)</p>
               </div>
             ) : (

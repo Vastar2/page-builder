@@ -2,24 +2,14 @@ import { FC, useState } from "react";
 import ColumnsFilter from "./ColumnsFilter";
 import ColorsFilter from "./ColorsFilter";
 import GapsFilter from "./GapsFilter";
+import { TModalData } from "../types";
 
 interface HeaderProps {
-  numberOfColumns: number;
-  color: string;
-  gap: number;
-  onSetNumberOfColumns: (item: number) => void;
-  onSetColor: (e: string) => void;
-  onSetGap: (e: number) => void;
+  modalData: TModalData;
+  onSetModalData: (name: string, data: number | string | null) => void;
 }
 
-const Header: FC<HeaderProps> = ({
-  numberOfColumns,
-  color,
-  gap,
-  onSetNumberOfColumns,
-  onSetColor,
-  onSetGap,
-}) => {
+const Header: FC<HeaderProps> = ({ modalData, onSetModalData }) => {
   const [isColumns, setIsColumns] = useState(false);
   const [isColors, setIsColors] = useState(false);
   const [isGap, setIsGap] = useState(false);
@@ -28,7 +18,7 @@ const Header: FC<HeaderProps> = ({
     <div className="w-full flex justify-around items-center bg-white gap-2 p-2 rounded-md relative ml-auto mr-auto shadow-md mb-4">
       <ColumnsFilter
         isColumns={isColumns}
-        numberOfColumns={numberOfColumns}
+        numberOfColumns={modalData.numberOfColumns}
         onOpenColumnsFilter={() => {
           if (isColors || setIsGap) {
             setIsColors(false);
@@ -38,12 +28,12 @@ const Header: FC<HeaderProps> = ({
         }}
         onCloseColumnsFilter={(item) => {
           setIsColumns(false);
-          onSetNumberOfColumns(item);
+          onSetModalData("numberOfColumns", item);
         }}
       />
       <ColorsFilter
         isColors={isColors}
-        color={color}
+        color={modalData.color}
         onOpenColorsFilter={() => {
           if (isColumns || setIsGap) {
             setIsColumns(false);
@@ -51,11 +41,11 @@ const Header: FC<HeaderProps> = ({
           }
           setIsColors(!isColors);
         }}
-        onSetColor={onSetColor}
+        onSetModalData={onSetModalData}
       />
       <GapsFilter
         isGap={isGap}
-        gap={gap}
+        gap={modalData.gap}
         onOpenGapsFilter={() => {
           if (isColumns || setIsColors) {
             setIsColumns(false);
@@ -63,7 +53,7 @@ const Header: FC<HeaderProps> = ({
           }
           setIsGap(!isGap);
         }}
-        onSetGap={onSetGap}
+        onSetModalData={onSetModalData}
       />
     </div>
   );
