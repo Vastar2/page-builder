@@ -1,6 +1,6 @@
 import { onCreateRow } from "../utils";
 import { FC, useState, useEffect } from "react";
-import { Row } from "../types";
+import { Item, Row } from "../types";
 import Modal from "./Modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -36,7 +36,9 @@ const Modals: FC<ModalsProps> = ({
     setModalData((prev) => {
       return {
         ...prev,
-        posts: [...Array(prev.numberOfColumns)].map(() => null),
+        posts: [...Array(prev.numberOfColumns)].map(
+          (_, index) => prev.posts[index]
+        ),
       };
     });
   }, [modalData.numberOfColumns]);
@@ -46,8 +48,6 @@ const Modals: FC<ModalsProps> = ({
       setModalData(editPost);
     }
   }, [editPost]);
-
-  console.log(modalData);
 
   const onSetModalData = () => {
     onSetData({
@@ -69,6 +69,50 @@ const Modals: FC<ModalsProps> = ({
     onCloseModalGeneral();
   };
 
+  const onNewFormData = (data: Item) => {
+    setModalData((prev) => {
+      if (
+        currentOpenPost !== null &&
+        currentOpenPost !== false &&
+        currentOpenPost !== true
+      ) {
+        return {
+          ...prev,
+          posts: [
+            ...prev.posts.slice(0, currentOpenPost),
+            data,
+            ...prev.posts.slice(currentOpenPost + 1),
+          ],
+        };
+      }
+      return prev;
+    });
+  };
+
+  const onClearModalData = () => {
+    setModalData({
+      id: null,
+      collectionName: "",
+      numberOfColumns: 3,
+      color: "#818CF8",
+      gap: 8,
+      posts: [...Array(3)].map(() => null),
+    });
+  };
+
+  const onDeletePost = (index: number) => {
+    setModalData((prev) => {
+      return {
+        ...prev,
+        posts: [
+          ...prev.posts.map((item, indexPosts) =>
+            indexPosts === index ? null : item
+          ),
+        ],
+      };
+    });
+  };
+
   return (
     <>
       <Modal
@@ -78,35 +122,8 @@ const Modals: FC<ModalsProps> = ({
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
-        onNewFormData={(data) => {
-          setModalData((prev) => {
-            if (
-              currentOpenPost !== null &&
-              currentOpenPost !== false &&
-              currentOpenPost !== true
-            ) {
-              return {
-                ...prev,
-                posts: [
-                  ...prev.posts.slice(0, currentOpenPost),
-                  data,
-                  ...prev.posts.slice(currentOpenPost + 1),
-                ],
-              };
-            }
-            return prev;
-          });
-        }}
-        onClearModalData={() => {
-          setModalData({
-            id: null,
-            collectionName: "",
-            numberOfColumns: 3,
-            color: "#818CF8",
-            gap: 8,
-            posts: [...Array(3)].map(() => null),
-          });
-        }}
+        onNewFormData={onNewFormData}
+        onClearModalData={onClearModalData}
         onCreateRow={() => onCreateRow(modalData, onSetModalData)}
         modalData={modalData}
         onSetModalData={(name, data) =>
@@ -115,6 +132,7 @@ const Modals: FC<ModalsProps> = ({
           })
         }
         onCloseModalPost={() => setCurrentOpenPost(null)}
+        onDeletePost={onDeletePost}
       />
       <Modal
         modalType="post"
@@ -123,35 +141,8 @@ const Modals: FC<ModalsProps> = ({
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
-        onNewFormData={(data) => {
-          setModalData((prev) => {
-            if (
-              currentOpenPost !== null &&
-              currentOpenPost !== false &&
-              currentOpenPost !== true
-            ) {
-              return {
-                ...prev,
-                posts: [
-                  ...prev.posts.slice(0, currentOpenPost),
-                  data,
-                  ...prev.posts.slice(currentOpenPost + 1),
-                ],
-              };
-            }
-            return prev;
-          });
-        }}
-        onClearModalData={() => {
-          setModalData({
-            id: null,
-            collectionName: "",
-            numberOfColumns: 3,
-            color: "#818CF8",
-            gap: 8,
-            posts: [...Array(3)].map(() => null),
-          });
-        }}
+        onNewFormData={onNewFormData}
+        onClearModalData={onClearModalData}
         onCreateRow={() => onCreateRow(modalData, onSetModalData)}
         modalData={modalData}
         onSetModalData={(name, data) =>
@@ -160,6 +151,7 @@ const Modals: FC<ModalsProps> = ({
           })
         }
         onCloseModalPost={() => setCurrentOpenPost(null)}
+        onDeletePost={onDeletePost}
       />
     </>
   );

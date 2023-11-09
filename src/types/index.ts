@@ -12,11 +12,3 @@ export interface Row {
   gap: number;
   posts: (null | Item)[];
 }
-
-// export interface TModalData {
-//   collectionName: string;
-//   numberOfColumns: number;
-//   color: string;
-//   gap: number;
-//   posts: (null | Item)[];
-// }

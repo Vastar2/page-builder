@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FC, useState } from "react";
 import { Item, Row } from "../types";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineFileImage } from "react-icons/ai";
 
 interface IFormInput {
   title: string;
@@ -67,7 +67,11 @@ const NewPostForm: FC<NewPostFormProps> = ({
       <label>
         Image
         <div className="w-full h-20 py-6 rounded-md mt-1 border cursor-pointer border-gray-300 hover:border-gray-400 flex justify-center items-center">
-          {!file ? <AiOutlinePlus className="text-xl" /> : <p>{file.name}</p>}
+          {!file ? (
+            <AiOutlineFileImage className="text-xl" />
+          ) : (
+            <p>{file.name}</p>
+          )}
           <input
             type="file"
             className="hidden"

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineArrowLeft } from "react-icons/ai";
 import GeneralFilters from "./GeneralFilters";
 import NewPostForm from "./NewPostForm";
 import { Item, Row } from "../types/index";
@@ -17,6 +17,7 @@ interface ModalProps {
   modalData: Row;
   onSetModalData: (name: string, data: number | string | null) => void;
   onCloseModalPost: () => void;
+  onDeletePost: (index: number) => void;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -31,6 +32,7 @@ const Modal: FC<ModalProps> = ({
   modalData,
   onSetModalData,
   onCloseModalPost,
+  onDeletePost,
 }) => {
   if (isModal === false || isModal === null) return null;
 
@@ -44,6 +46,7 @@ const Modal: FC<ModalProps> = ({
             onCreateRow={onCreateRow}
             modalData={modalData}
             onSetModalData={onSetModalData}
+            onDeletePost={onDeletePost}
           />
         )}
         {modalType === "post" && (
@@ -54,20 +57,29 @@ const Modal: FC<ModalProps> = ({
             onNewFormData={onNewFormData}
           />
         )}
-        <button
-          type="button"
-          onClick={() => {
-            if (modalType === "general") {
+        {modalType === "general" && (
+          <button
+            type="button"
+            onClick={() => {
               onCloseModalGeneral();
               onClearModalData();
-            } else if (modalType === "post") {
+            }}
+            className="absolute text-xl top-5 right-3 text-gray-400 duration-300 hover:text-gray-500"
+          >
+            <AiOutlineClose />
+          </button>
+        )}
+        {modalType === "post" && (
+          <button
+            type="button"
+            onClick={() => {
               onCloseModalPost();
-            }
-          }}
-          className="absolute top-4 right-4"
-        >
-          <AiOutlineClose />
-        </button>
+            }}
+            className="absolute text-xl top-5 left-3 text-gray-400 duration-300 hover:text-gray-500"
+          >
+            <AiOutlineArrowLeft />
+          </button>
+        )}
       </div>
     </div>
   );
