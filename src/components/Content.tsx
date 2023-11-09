@@ -10,7 +10,7 @@ interface ContentProps {
 
 const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
   return (
-    <ul className="grid gap-3 w-1/4 ml-auto mr-auto relative">
+    <ul className="flex justify-center flex-wrap gap-3 relative">
       {data.map((item, index) => (
         <li
           key={index}
