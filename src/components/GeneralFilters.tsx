@@ -1,18 +1,20 @@
 import Header from "./Header";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FC } from "react";
-import { TModalData } from "../types/index";
+import { Row } from "../types/index";
 
 interface GeneralFiltersProps {
   onGetNumberOfOpenPost: (item: number | null) => void;
+  editPost: Row | null;
   onCreateRow: () => void;
 
-  modalData: TModalData;
+  modalData: Row;
   onSetModalData: (name: string, data: number | string | null) => void;
 }
 
 const GeneralFilters: FC<GeneralFiltersProps> = ({
   onGetNumberOfOpenPost,
+  editPost,
   onCreateRow,
 
   modalData,
@@ -21,7 +23,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
   return (
     <div className="w-full">
       <p className="font-bold text-center mb-4 text-indigo-400 text-xl">
-        New row
+        {!editPost ? "New" : "Edit"} row
       </p>
       <label>
         Collection name
@@ -65,7 +67,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
         className="w-full mt-4 py-2 rounded-md border cursor-pointer text-indigo-600 border-indigo-400 duration-300 hover:bg-indigo-100 hover:border-indigo-600 hover:text-indigo-600"
         onClick={onCreateRow}
       >
-        Create row
+        {!editPost ? "Create" : "Edit"} row
       </button>
     </div>
   );

@@ -2,10 +2,10 @@ import { FC, useState } from "react";
 import ColumnsFilter from "./ColumnsFilter";
 import ColorsFilter from "./ColorsFilter";
 import GapsFilter from "./GapsFilter";
-import { TModalData } from "../types";
+import { Row } from "../types";
 
 interface HeaderProps {
-  modalData: TModalData;
+  modalData: Row;
   onSetModalData: (name: string, data: number | string | null) => void;
 }
 

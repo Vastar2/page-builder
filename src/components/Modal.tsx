@@ -2,24 +2,27 @@ import { FC } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import GeneralFilters from "./GeneralFilters";
 import NewPostForm from "./NewPostForm";
-import { Item, TModalData } from "../types/index";
+import { Item, Row } from "../types/index";
 
 interface ModalProps {
   modalType: string;
   isModal: boolean | number | null;
+  editPost: Row | null;
   onSetIsModal: React.Dispatch<React.SetStateAction<boolean | number | null>>;
   onCloseModalGeneral: () => void;
   onGetNumberOfOpenPost: (item: number | null) => void;
   onNewFormData: (data: Item) => void;
   onClearModalData: () => void;
   onCreateRow: () => void;
-  modalData: TModalData;
+  modalData: Row;
   onSetModalData: (name: string, data: number | string | null) => void;
+  onCloseModalPost: () => void;
 }
 
 const Modal: FC<ModalProps> = ({
   modalType,
   isModal,
+  editPost,
   onCloseModalGeneral,
   onGetNumberOfOpenPost,
   onNewFormData,
@@ -27,6 +30,7 @@ const Modal: FC<ModalProps> = ({
   onCreateRow,
   modalData,
   onSetModalData,
+  onCloseModalPost,
 }) => {
   if (isModal === false || isModal === null) return null;
 
@@ -36,6 +40,7 @@ const Modal: FC<ModalProps> = ({
         {modalType === "general" && (
           <GeneralFilters
             onGetNumberOfOpenPost={onGetNumberOfOpenPost}
+            editPost={editPost}
             onCreateRow={onCreateRow}
             modalData={modalData}
             onSetModalData={onSetModalData}
@@ -44,6 +49,7 @@ const Modal: FC<ModalProps> = ({
         {modalType === "post" && (
           <NewPostForm
             currentOpenPost={isModal}
+            editPost={editPost}
             onGetNumberOfOpenPost={onGetNumberOfOpenPost}
             onNewFormData={onNewFormData}
           />
@@ -51,8 +57,12 @@ const Modal: FC<ModalProps> = ({
         <button
           type="button"
           onClick={() => {
-            onCloseModalGeneral();
-            onClearModalData();
+            if (modalType === "general") {
+              onCloseModalGeneral();
+              onClearModalData();
+            } else if (modalType === "post") {
+              onCloseModalPost();
+            }
           }}
           className="absolute top-4 right-4"
         >

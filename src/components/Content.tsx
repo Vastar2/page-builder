@@ -5,10 +5,11 @@ import { twMerge } from "tailwind-merge";
 
 interface ContentProps {
   data: Row[];
-  onDeleteRow: (id: string) => void;
+  onDeleteRow: (id: string | null) => void;
+  onSetEditPost: (item: Row | null) => void;
 }
 
-const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
+const Content: FC<ContentProps> = ({ data, onDeleteRow, onSetEditPost }) => {
   return (
     <ul className="flex justify-center flex-wrap gap-3 relative">
       {data.map((item, index) => (
@@ -27,8 +28,7 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    // onEditRow(item.id);
-                    alert("Edit mode");
+                    onSetEditPost(item);
                   }}
                   className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
                 >

@@ -1,6 +1,6 @@
 import { onCreateRow } from "../utils";
 import { FC, useState, useEffect } from "react";
-import { TModalData, Row } from "../types";
+import { Row } from "../types";
 import Modal from "./Modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,14 +11,17 @@ interface ModalsProps {
     React.SetStateAction<boolean | number | null>
   >;
   onCloseModalGeneral: () => void;
+  editPost: Row | null;
 }
 
 const Modals: FC<ModalsProps> = ({
   onSetData,
   isModalGeneral,
   onCloseModalGeneral,
+  editPost,
 }) => {
-  const [modalData, setModalData] = useState<TModalData>({
+  const [modalData, setModalData] = useState<Row>({
+    id: null,
     collectionName: "",
     numberOfColumns: 3,
     color: "#818CF8",
@@ -38,9 +41,17 @@ const Modals: FC<ModalsProps> = ({
     });
   }, [modalData.numberOfColumns]);
 
+  useEffect(() => {
+    if (editPost) {
+      setModalData(editPost);
+    }
+  }, [editPost]);
+
+  console.log(modalData);
+
   const onSetModalData = () => {
     onSetData({
-      id: uuidv4(),
+      id: !modalData.id ? uuidv4() : modalData.id,
       collectionName: modalData.collectionName,
       numberOfColumns: modalData.numberOfColumns,
       color: modalData.color,
@@ -48,6 +59,7 @@ const Modals: FC<ModalsProps> = ({
       posts: modalData.posts,
     });
     setModalData({
+      id: null,
       collectionName: "",
       numberOfColumns: 3,
       color: "#818CF8",
@@ -62,6 +74,7 @@ const Modals: FC<ModalsProps> = ({
       <Modal
         modalType="general"
         isModal={isModalGeneral}
+        editPost={editPost}
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
@@ -86,6 +99,7 @@ const Modals: FC<ModalsProps> = ({
         }}
         onClearModalData={() => {
           setModalData({
+            id: null,
             collectionName: "",
             numberOfColumns: 3,
             color: "#818CF8",
@@ -100,10 +114,12 @@ const Modals: FC<ModalsProps> = ({
             return { ...prep, [name]: data };
           })
         }
+        onCloseModalPost={() => setCurrentOpenPost(null)}
       />
       <Modal
         modalType="post"
         isModal={currentOpenPost}
+        editPost={editPost}
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
@@ -128,6 +144,7 @@ const Modals: FC<ModalsProps> = ({
         }}
         onClearModalData={() => {
           setModalData({
+            id: null,
             collectionName: "",
             numberOfColumns: 3,
             color: "#818CF8",
@@ -142,6 +159,7 @@ const Modals: FC<ModalsProps> = ({
             return { ...prep, [name]: data };
           })
         }
+        onCloseModalPost={() => setCurrentOpenPost(null)}
       />
     </>
   );

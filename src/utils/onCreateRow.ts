@@ -1,10 +1,7 @@
 import toast from "react-hot-toast";
-import { TModalData } from "../types";
+import { Row } from "../types";
 
-export const onCreateRow = (
-  modalData: TModalData,
-  onSetModalData: () => void
-) => {
+export const onCreateRow = (modalData: Row, onSetModalData: () => void) => {
   if (!modalData.collectionName) {
     toast.error("You should add the name of collection");
     return;
