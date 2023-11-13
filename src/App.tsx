@@ -10,7 +10,7 @@ const App = () => {
   const [isModalGeneral, setIsModalGeneral] = useState<boolean | null | number>(
     false
   );
-  const [editPost, setEditPost] = useState<Row | null>(null);
+  const [editedPost, setEditedPost] = useState<Row | null>(null);
 
   return (
     <div className="py-10">
@@ -27,17 +27,17 @@ const App = () => {
           setData((prev) => prev.filter((value) => value.id !== id))
         }
         onSetEditPost={(item) => {
-          setEditPost(item);
+          setEditedPost(item);
           setIsModalGeneral(true);
         }}
       />
       <Modals
         onSetData={(propData) =>
           setData((prev) =>
-            editPost
+            editedPost
               ? [
                   ...prev.map((item) =>
-                    item.id !== editPost.id ? item : propData
+                    item.id !== editedPost.id ? item : propData
                   ),
                 ]
               : [propData, ...prev]
@@ -47,9 +47,9 @@ const App = () => {
         setIsModalGeneral={setIsModalGeneral}
         onCloseModalGeneral={() => {
           setIsModalGeneral(false);
-          setEditPost(null);
+          setEditedPost(null);
         }}
-        editPost={editPost}
+        editedPost={editedPost}
       />
       <Toaster position="top-center" reverseOrder={false} />
     </div>

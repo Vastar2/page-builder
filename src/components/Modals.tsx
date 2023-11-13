@@ -11,14 +11,14 @@ interface ModalsProps {
     React.SetStateAction<boolean | number | null>
   >;
   onCloseModalGeneral: () => void;
-  editPost: Row | null;
+  editedPost: Row | null;
 }
 
 const Modals: FC<ModalsProps> = ({
   onSetData,
   isModalGeneral,
   onCloseModalGeneral,
-  editPost,
+  editedPost,
 }) => {
   const [modalData, setModalData] = useState<Row>({
     id: null,
@@ -44,10 +44,8 @@ const Modals: FC<ModalsProps> = ({
   }, [modalData.numberOfColumns]);
 
   useEffect(() => {
-    if (editPost) {
-      setModalData(editPost);
-    }
-  }, [editPost]);
+    editedPost && setModalData(editedPost);
+  }, [editedPost]);
 
   const onSetModalData = () => {
     onSetData({
@@ -118,7 +116,7 @@ const Modals: FC<ModalsProps> = ({
       <Modal
         modalType="general"
         isModal={isModalGeneral}
-        editPost={editPost}
+        editedPost={editedPost}
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}
@@ -137,7 +135,7 @@ const Modals: FC<ModalsProps> = ({
       <Modal
         modalType="post"
         isModal={currentOpenPost}
-        editPost={editPost}
+        editedPost={editedPost}
         onSetIsModal={setCurrentOpenPost}
         onCloseModalGeneral={onCloseModalGeneral}
         onGetNumberOfOpenPost={(item) => setCurrentOpenPost(item)}

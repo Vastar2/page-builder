@@ -6,7 +6,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 interface GeneralFiltersProps {
   onGetNumberOfOpenPost: (item: number | null) => void;
-  editPost: Row | null;
+  editedPost: Row | null;
   onCreateRow: () => void;
   modalData: Row;
   onSetModalData: (name: string, data: number | string | null) => void;
@@ -15,7 +15,7 @@ interface GeneralFiltersProps {
 
 const GeneralFilters: FC<GeneralFiltersProps> = ({
   onGetNumberOfOpenPost,
-  editPost,
+  editedPost,
   onCreateRow,
   modalData,
   onSetModalData,
@@ -24,7 +24,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
   return (
     <div className="w-full">
       <p className="font-bold text-center mb-4 text-indigo-400 text-xl">
-        {!editPost ? "New" : "Edit"} row
+        {!editedPost ? "New" : "Edit"} row
       </p>
       <label>
         Collection name
@@ -73,7 +73,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
         className="w-full mt-4 py-2 rounded-md border cursor-pointer text-indigo-600 border-indigo-400 duration-300 hover:bg-indigo-100 hover:border-indigo-600 hover:text-indigo-600"
         onClick={onCreateRow}
       >
-        {!editPost ? "Create" : "Edit"} row
+        {!editedPost ? "Create" : "Edit"} row
       </button>
     </div>
   );

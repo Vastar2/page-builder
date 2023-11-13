@@ -7,7 +7,7 @@ import { Item, Row } from "../types/index";
 interface ModalProps {
   modalType: string;
   isModal: boolean | number | null;
-  editPost: Row | null;
+  editedPost: Row | null;
   onSetIsModal: React.Dispatch<React.SetStateAction<boolean | number | null>>;
   onCloseModalGeneral: () => void;
   onGetNumberOfOpenPost: (item: number | null) => void;
@@ -23,7 +23,7 @@ interface ModalProps {
 const Modal: FC<ModalProps> = ({
   modalType,
   isModal,
-  editPost,
+  editedPost,
   onCloseModalGeneral,
   onGetNumberOfOpenPost,
   onNewFormData,
@@ -42,7 +42,7 @@ const Modal: FC<ModalProps> = ({
         {modalType === "general" && (
           <GeneralFilters
             onGetNumberOfOpenPost={onGetNumberOfOpenPost}
-            editPost={editPost}
+            editedPost={editedPost}
             onCreateRow={onCreateRow}
             modalData={modalData}
             onSetModalData={onSetModalData}
@@ -52,7 +52,7 @@ const Modal: FC<ModalProps> = ({
         {modalType === "post" && (
           <NewPostForm
             currentOpenPost={isModal}
-            editPost={editPost}
+            editedPost={editedPost}
             onGetNumberOfOpenPost={onGetNumberOfOpenPost}
             onNewFormData={onNewFormData}
           />

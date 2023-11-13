@@ -12,14 +12,14 @@ interface IFormInput {
 
 interface NewPostFormProps {
   currentOpenPost: boolean | number | null;
-  editPost: Row | null;
+  editedPost: Row | null;
   onGetNumberOfOpenPost: (item: number | null) => void;
   onNewFormData: (data: Item) => void;
 }
 
 const NewPostForm: FC<NewPostFormProps> = ({
   currentOpenPost,
-  editPost,
+  editedPost,
   onGetNumberOfOpenPost,
   onNewFormData,
 }) => {
@@ -44,7 +44,7 @@ const NewPostForm: FC<NewPostFormProps> = ({
       className="flex flex-col gap-2 w-full"
     >
       <p className="font-bold text-center mb-4 text-indigo-400 text-xl">
-        {!editPost ? "New" : "Edit"} post №
+        {!editedPost ? "New" : "Edit"} post №
         {typeof currentOpenPost === "number" && currentOpenPost + 1}
       </p>
       <label>

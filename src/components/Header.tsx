@@ -20,7 +20,7 @@ const Header: FC<HeaderProps> = ({ modalData, onSetModalData }) => {
         isColumns={isColumns}
         numberOfColumns={modalData.numberOfColumns}
         onOpenColumnsFilter={() => {
-          if (isColors || setIsGap) {
+          if (isColors || isGap) {
             setIsColors(false);
             setIsGap(false);
           }
@@ -35,7 +35,7 @@ const Header: FC<HeaderProps> = ({ modalData, onSetModalData }) => {
         isColors={isColors}
         color={modalData.color}
         onOpenColorsFilter={() => {
-          if (isColumns || setIsGap) {
+          if (isColumns || isGap) {
             setIsColumns(false);
             setIsGap(false);
           }
@@ -47,7 +47,7 @@ const Header: FC<HeaderProps> = ({ modalData, onSetModalData }) => {
         isGap={isGap}
         gap={modalData.gap}
         onOpenGapsFilter={() => {
-          if (isColumns || setIsColors) {
+          if (isColumns || isColors) {
             setIsColumns(false);
             setIsColors(false);
           }
