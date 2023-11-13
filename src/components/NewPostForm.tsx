@@ -59,7 +59,7 @@ const NewPostForm: FC<NewPostFormProps> = ({
         <textarea
           className="w-full block py-2 rounded-md border  mt-1 duration-300 border-gray-300 hover:border-gray-400 resize-none p-2"
           {...register("description", {
-            required: true,
+            required: false,
             maxLength: 100,
           })}
         />
