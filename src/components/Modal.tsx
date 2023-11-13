@@ -72,9 +72,7 @@ const Modal: FC<ModalProps> = ({
         {modalType === "post" && (
           <button
             type="button"
-            onClick={() => {
-              onCloseModalPost();
-            }}
+            onClick={() => onCloseModalPost()}
             className="absolute text-xl top-5 left-3 text-gray-400 duration-300 hover:text-gray-500"
           >
             <AiOutlineArrowLeft />

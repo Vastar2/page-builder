@@ -58,9 +58,7 @@ const GeneralFilters: FC<GeneralFiltersProps> = ({
               ) : (
                 <button
                   type="button"
-                  onClick={() => {
-                    onGetNumberOfOpenPost(index);
-                  }}
+                  onClick={() => onGetNumberOfOpenPost(index)}
                   className="w-full h-full py-2 flex justify-center items-center duration-300 hover:bg-gray-100"
                 >
                   <AiOutlinePlus />

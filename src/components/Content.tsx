@@ -27,9 +27,7 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow, onSetEditPost }) => {
               <div className="ml-auto">
                 <button
                   type="button"
-                  onClick={() => {
-                    onSetEditPost(item);
-                  }}
+                  onClick={() => onSetEditPost(item)}
                   className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
                 >
                   <AiOutlineEdit />
@@ -38,9 +36,7 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow, onSetEditPost }) => {
               <div className="ml-2">
                 <button
                   type="button"
-                  onClick={() => {
-                    onDeleteRow(item.id);
-                  }}
+                  onClick={() => onDeleteRow(item.id)}
                   className="w-8 h-8 flex justify-center items-center bg-white p-2 rounded-md duration-300 border border-indigo-300 hover:bg-gray-100"
                 >
                   <AiOutlineDelete />

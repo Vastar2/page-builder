@@ -32,9 +32,7 @@ const GapsFilter: FC<GapsFilterProps> = ({
             max="20"
             step="4"
             value={gap}
-            onChange={(e) => {
-              onSetModalData("gap", Number(e.target.value));
-            }}
+            onChange={(e) => onSetModalData("gap", Number(e.target.value))}
           />
         </div>
       )}

@@ -32,7 +32,7 @@ const App = () => {
         }}
       />
       <Modals
-        onSetData={(propData) => {
+        onSetData={(propData) =>
           setData((prev) =>
             editPost
               ? [
@@ -41,8 +41,8 @@ const App = () => {
                   ),
                 ]
               : [propData, ...prev]
-          );
-        }}
+          )
+        }
         isModalGeneral={isModalGeneral}
         setIsModalGeneral={setIsModalGeneral}
         onCloseModalGeneral={() => {
