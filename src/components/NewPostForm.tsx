@@ -82,6 +82,7 @@ const NewPostForm: FC<NewPostFormProps> = ({
       </label>
       <input
         className="w-full mt-4 py-2 rounded-md border cursor-pointer text-indigo-600 border-indigo-400 duration-300 hover:bg-indigo-100 hover:border-indigo-600 hover:text-indigo-600"
+        value="Submit"
         type="submit"
       />
     </form>
