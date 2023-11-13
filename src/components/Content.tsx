@@ -57,20 +57,22 @@ const Content: FC<ContentProps> = ({ data, onDeleteRow, onSetEditPost }) => {
                 >
                   {value ? (
                     <div
-                      className={`${twMerge(
+                      className={twMerge(
                         item.numberOfColumns === 1 ? "flex gap-4" : "block"
-                      )}`}
+                      )}
                     >
                       <div
-                        className={`${twMerge(
+                        className={twMerge(
+                          "mb-1",
                           item.numberOfColumns === 1 ? "mr-auto" : ""
-                        )} mb-1`}
+                        )}
                       >
                         <p className="font-bold mb-1">{value.title}</p>
                         <p
-                          className={`${twMerge(
+                          className={twMerge(
+                            "break-words",
                             item.numberOfColumns === 1 ? " w-56" : " w-28"
-                          )} break-words`}
+                          )}
                         >
                           {value.description}
                         </p>
