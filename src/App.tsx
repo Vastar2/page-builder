@@ -35,11 +35,9 @@ const App = () => {
         onSetData={(propData) =>
           setData((prev) =>
             editedPost
-              ? [
-                  ...prev.map((item) =>
-                    item.id !== editedPost.id ? item : propData
-                  ),
-                ]
+              ? prev.map((item) =>
+                  item.id !== editedPost.id ? item : propData
+                )
               : [propData, ...prev]
           )
         }

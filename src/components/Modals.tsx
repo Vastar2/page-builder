@@ -125,9 +125,7 @@ const Modals: FC<ModalsProps> = ({
         onCreateRow={() => onCreateRow(modalData, onSetModalData)}
         modalData={modalData}
         onSetModalData={(name, data) =>
-          setModalData((prep) => {
-            return { ...prep, [name]: data };
-          })
+          setModalData((prep) => ({ ...prep, [name]: data }))
         }
         onCloseModalPost={() => setCurrentOpenPost(null)}
         onDeletePost={onDeletePost}
@@ -144,9 +142,7 @@ const Modals: FC<ModalsProps> = ({
         onCreateRow={() => onCreateRow(modalData, onSetModalData)}
         modalData={modalData}
         onSetModalData={(name, data) =>
-          setModalData((prep) => {
-            return { ...prep, [name]: data };
-          })
+          setModalData((prep) => ({ ...prep, [name]: data }))
         }
         onCloseModalPost={() => setCurrentOpenPost(null)}
         onDeletePost={onDeletePost}
